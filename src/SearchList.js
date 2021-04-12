@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import Book from './Book'
+import SearchTermList from './SearchTerms'
 
 class SearchList extends Component  {
   state = {
@@ -15,10 +16,16 @@ class SearchList extends Component  {
     onChangeNone: PropTypes.func.isRequired,
   }
 
-  componentDidMount = (input) => {  
+
+  capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  loadSearch = (input) => {  
   BooksAPI.search(input)
   .then((books) => {
-    if(input === ""){  this.setState({
+    if((input === "") || (!SearchTermList.includes(this.capitalizeFirstLetter(input)))){ console.log("Your Search Input is invalid. Please use a valid word.") 
+       this.setState({
       searchedBooks: []
     }) }else{
     (Array.isArray(books)) && (
@@ -32,11 +39,12 @@ class SearchList extends Component  {
 
 
 userInput = (inputString) => {
-  this.componentDidMount(inputString)
+  this.loadSearch(inputString)
 }
 
   render() {
   const { bookss, onChangeNone, onChangeRead } = this.props;
+  const test = "art";
 
 return (
   <div className="search-books">

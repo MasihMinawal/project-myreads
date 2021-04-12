@@ -10,7 +10,7 @@ class BooksApp extends React.Component {
 
   state = {
     bookss: [],
-    localBookArray: ["jAUODAAAQBAJ", "nggnmAEACAAJ", "sJf1vQAACAAJ", "evuwdDLfAyYC", "74XNzF_al3MC", "IOejDAAAQBAJ"],
+  //  localBookArray: ["jAUODAAAQBAJ", "nggnmAEACAAJ", "sJf1vQAACAAJ", "evuwdDLfAyYC", "74XNzF_al3MC", "IOejDAAAQBAJ"],
     categories: ["currentlyReading", "wantToRead", "read"],
     userInput: "",
   }
@@ -25,12 +25,16 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount = () => {
-    this.state.localBookArray.map(myRead => {
-      this.loadBook(myRead);
-    })
+    BooksAPI.getAll()
+      .then((books) =>{
+        this.setState({
+          bookss: books
+        })
+      })
   }
 
   removeBook = (bookid) => {
+    this.updateBook(bookid, "none")
     console.log(bookid)
     let copyBookss = [];
       this.state.bookss.filter(copyBook => {if(bookid !== copyBook.id){copyBookss.push(copyBook)}})
@@ -38,25 +42,22 @@ class BooksApp extends React.Component {
       console.log("deleted local from MyReads")
    }
 
-   changeLocalState = (bookid, shelf) => {
+   changeState = (bookid, shelf) => {
      let targetNumber = 0;
      let doesChange = 0;
      let copyBook = this.state.bookss
-     let copyLocalBookArray = this.state.localBookArray
      copyBook.map(anyBook => {
        if(anyBook.id === bookid){copyBook[targetNumber].shelf = shelf; doesChange++}
        targetNumber++;
      })
-     if(doesChange <= 0){this.loadBook(bookid); copyLocalBookArray.push(bookid)}
-     this.setState({localBookArray: copyLocalBookArray})
+
+     if(doesChange <= 0){this.loadBook(bookid); copyBook.push(bookid)}
      this.setState({bookss: copyBook})
    }
 
    updateBook = (bookid, shelf) => {
-     console.log("trying to update " + bookid + " " + shelf);
      BooksAPI.update(bookid, shelf)
-     .then(this.changeLocalState(bookid, shelf))
-     .then(console.log("moved to " + shelf))
+    .then(this.changeState(bookid, shelf))
    }
 
 
@@ -101,8 +102,3 @@ const AppLayout = styled.div`
   display: grid;
   overflow-y: scroll;
 `
-
-
-/*
-
-*/

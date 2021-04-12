@@ -1,12 +1,17 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+This project is a task for the udacity react course. 
+Its functionality is written in javascript & uses the react framework for the app and the node framework is used by the backendserver.
+Some Modules were used: prop-types for checking correct prop-types, react-router for routing on a singlepage, bootstrap for styling, an API for connecting to the database(which is owned by udacity).
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+The app fetches books due an API from the database.
+It has two views, the first is a BookList for displaying books, categorized into their shelves by :(A)Currently Reading, (B)Want to Read and (C)Read.
+The other view is a SearchList for searching books on the connected database and displaying the searched outputted books.
+On both views you can select any book, and save them in your BookList by clicking and selecting the category.
 
 ## TL;DR
 
-To get started developing right away:
+To get started using this code you need to
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
@@ -15,7 +20,7 @@ To get started developing right away:
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
+├── SEARCH_TERMS.md # The whitelisted short collection of available search terms.
 ├── package.json # npm package manager file
 ├── public
 │   ├── favicon.ico # React Icon
@@ -41,7 +46,7 @@ To get started developing right away:
 
 ## Backend Server
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+The backendserver only reacts on following commands (The functions can be viewed in BooksAPI.js)
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -92,4 +97,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Contributing
 
 This repository is based on the starter code for _all_ Udacity students: https://github.com/udacity/reactnd-project-myreads-starter
-
